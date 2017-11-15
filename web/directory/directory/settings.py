@@ -4,7 +4,6 @@
 import os
 
 from configurations import Configuration, values
-from django.urls import reverse_lazy
 from unipath import Path
 
 
@@ -12,10 +11,6 @@ class Base(Configuration):
     LANGUAGE_CODE = 'en-us'
 
     TIME_ZONE = 'America/New_York'
-
-    LOGIN_URL = reverse_lazy('auth_login')
-    LOGIN_REDIRECT_URL = reverse_lazy('api-root')
-    LOGOUT_REDIRECT_URL = reverse_lazy('auth_login')
 
     ADMINS = (
     )

@@ -14,24 +14,19 @@ class IndexView(TemplateView):
     def get_context_data(self, **kwargs):
         name = self.request.GET.get("name")
         if not name:
-            return {"data": []}
+            return {"results": []}
         data = filter_organizations_by_name(name)
         return {"results": data["results"], "current": name}
 
 
 def filter_organizations_by_name(name):
-    response = requests.request("GET",
-                                _organization_list_url(name),
-                                headers=(_headers()))
+    url = _organization_list_url(name)
+    response = request(url, _headers())
     return response.json()
 
 
-def _headers():
-    return {'content-type': "application/x-www-form-urlencoded",
-            'accept': "application/json; indent=4",
-            'authorization': ("Bearer {}".format(
-                settings.IMPACT_API_ACCESS_TOKEN)),
-            'cache-control': "no-cache"}
+def request(url, headers):
+    return requests.request("GET", url, headers=headers)  # pragma: no cover
 
 
 def _organization_list_url(name):
@@ -40,3 +35,11 @@ def _organization_list_url(name):
         ORGANIZATION_LIST_VIEW_URL_PATH,
         DEFAULT_LIMIT,
         name))
+
+
+def _headers():
+    return {'content-type': "application/x-www-form-urlencoded",
+            'accept': "application/json; indent=4",
+            'authorization': ("Bearer {}".format(
+                settings.IMPACT_API_ACCESS_TOKEN)),
+            'cache-control': "no-cache"}
