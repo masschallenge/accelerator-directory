@@ -51,6 +51,15 @@ variable in _.dev.env_.
 _web/nginx/nginx.conf_.
 - localhost port is configured correctly in _web/scripts/start-nodaemon.sh_.
 - localhost port is configured correctly in _supervisord.conf_.
+- `IMPACT_API_URL` is configured correctly in _.env_ file:
+  - make sure impact-api is running (`make dev` is successful)
+  - run `docker ps`, find the image named impactapi_web, copy that container id
+  - run `docker inspect <container_id> | grep Gateway`. The IP that appears
+  there should be set in settings.py.
+- `IMPACT_API_ACCESS_TOKEN_` is configured correctly in `.env` file:
+  - make sure impact-api is running (`make dev` is successful)
+  - generate an access token, as is described in the repo's quickstart.
+  - set this token in _.env_ file.
 
 
 6. Run tests.  From the accelerator-directory source directory run:

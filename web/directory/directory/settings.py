@@ -156,6 +156,10 @@ class Base(Configuration):
         'django.contrib.auth.backends.ModelBackend',
     )
 
+    IMPACT_API_URL = str(os.environ.get("IMPACT_API_URL", ""))
+    IMPACT_API_ACCESS_TOKEN = str(
+        os.environ.get("IMPACT_API_ACCESS_TOKEN", ""))
+
 
 class Dev(Base):
     DEBUG = True
@@ -171,8 +175,8 @@ class Dev(Base):
     ]
 
     MIDDLEWARE_CLASSES = [
-        'debug_toolbar.middleware.DebugToolbarMiddleware',
-    ] + Base.MIDDLEWARE_CLASSES
+                             'debug_toolbar.middleware.DebugToolbarMiddleware',
+                         ] + Base.MIDDLEWARE_CLASSES
 
     INSTALLED_APPS = Base.INSTALLED_APPS + [
         'debug_toolbar',

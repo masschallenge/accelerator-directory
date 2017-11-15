@@ -1,4 +1,10 @@
+import requests
 from django.views.generic import TemplateView
+
+from django.conf import settings
+
+ORGANIZATION_LIST_VIEW_URL_PATH = "api/v1/organization/"
+DEFAULT_LIMIT = "50"
 
 
 class IndexView(TemplateView):
@@ -6,4 +12,31 @@ class IndexView(TemplateView):
     template_name = "base.html"
 
     def get_context_data(self, **kwargs):
-        return {}
+        name = self.request.GET.get("name")
+        if not name:
+            return {"data": []}
+        data = filter_organizations_by_name(name)
+        return {"results": data["results"], "current": name}
+
+
+def filter_organizations_by_name(name):
+    response = requests.request("GET",
+                                _organization_list_url(name),
+                                headers=(_headers()))
+    return response.json()
+
+
+def _headers():
+    return {'content-type': "application/x-www-form-urlencoded",
+            'accept': "application/json; indent=4",
+            'authorization': ("Bearer {}".format(
+                settings.IMPACT_API_ACCESS_TOKEN)),
+            'cache-control': "no-cache"}
+
+
+def _organization_list_url(name):
+    return ("{}/{}?limit={}&name={}".format(
+        settings.IMPACT_API_URL,
+        ORGANIZATION_LIST_VIEW_URL_PATH,
+        DEFAULT_LIMIT,
+        name))
