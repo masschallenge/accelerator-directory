@@ -181,7 +181,7 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
-# directory-api
+# accelerator-directory
 local_settings.py
 mysql/data/
 web/directory/.coverage
