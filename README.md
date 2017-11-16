@@ -18,7 +18,7 @@ _Copyright (c) 2017 MassChallenge, Inc._
 3. Install impact-api and spin up a dev server. 
 The accelerator-directory code is currently designed to 
 work with an instance of the MassChallenge's impact-api, and relevant 
-depenedencies. Make sure to install it and run it by following the steps 
+dependencies. Make sure to install it and run it by following the steps 
 described [here](https://github.com/masschallenge/impact-api/blob/development/QUICK_START.md).
 
 4. Get the source code for accelerator-directory.  
@@ -42,7 +42,7 @@ cd accelerator-directory
 5. Configure the docker-compose with a .env file. Do this by copying 
 `.env.template` as `.env`, and set configurations for this project. 
 Ports set must not be already used on your localhost. The configuration is
-valid if running `docker-compose config` prints a valid docker-compose file.
+valid if running `docker-compose config -q` does not raise any errors.
 
 Also, make sure the following are configured manually:
 - redis port is configured correctly in the `DJANGO_HIREDIS_CACHE_LOCATION` 
