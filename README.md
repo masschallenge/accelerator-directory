@@ -45,12 +45,6 @@ Ports set must not be already used on your localhost. The configuration is
 valid if running `docker-compose config -q` does not raise any errors.
 
 Also, make sure the following are configured manually:
-- redis port is configured correctly in the `DJANGO_HIREDIS_CACHE_LOCATION` 
-variable in _.dev.env_.
-- localhost port is configured correctly in the `proxy_pass` variable in 
-_web/nginx/nginx.conf_.
-- localhost port is configured correctly in _web/scripts/start-nodaemon.sh_.
-- localhost port is configured correctly in _supervisord.conf_.
 - `IMPACT_API_URL` is configured correctly in _.env_ file:
   - make sure impact-api is running (`make dev` is successful)
   - run `docker ps`, find the image named impactapi_web, copy that container id
