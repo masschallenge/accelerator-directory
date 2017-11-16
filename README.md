@@ -50,7 +50,7 @@ Also, make sure the following are configured manually:
   - run `docker ps`, find the image named impactapi_web, copy that container id
   - run `docker inspect <container_id> | grep Gateway`. The IP that appears
   there should be set in _.env_ file.
-- `.env:IMPACT_API_ACCESS_TOKEN_` has a correct value:
+- `.env:IMPACT_API_ACCESS_TOKEN` has a correct value:
   - make sure impact-api is running (`make dev` is successful)
   - generate an access token, as is described in the repo's quickstart.
   - set this token in _.env_ file.
