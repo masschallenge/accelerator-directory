@@ -29,5 +29,3 @@ class TestIndexView(TestCase):
     def test_index_view_returns_results_to_context(self):
         response = self.client.get(self.url + '?name=foo')
         self.assertGreater(len(response.context["results"]), 0)
-
-        pass
