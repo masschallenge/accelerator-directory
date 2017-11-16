@@ -52,7 +52,8 @@ Also, make sure the following are configured manually:
   there should be set in _.env_ file.
 - `.env:IMPACT_API_ACCESS_TOKEN` has a correct value:
   - make sure impact-api is running (`make dev` is successful)
-  - generate an access token, as is described in the repo's quickstart.
+  - generate an access token, as is described in [impact-api repo's 
+  quickstart](https://github.com/masschallenge/impact-api/blob/development/QUICK_START.md#quickstart-for-impact-api).
   - set this token in _.env_ file.
 
 
