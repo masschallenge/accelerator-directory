@@ -45,12 +45,12 @@ Ports set must not be already used on your localhost. The configuration is
 valid if running `docker-compose config -q` does not raise any errors.
 
 Also, make sure the following are configured manually:
-- `IMPACT_API_URL` is configured correctly in _.env_ file:
+- `.env:IMPACT_API_URL` has a correct value:
   - make sure impact-api is running (`make dev` is successful)
   - run `docker ps`, find the image named impactapi_web, copy that container id
   - run `docker inspect <container_id> | grep Gateway`. The IP that appears
-  there should be set in settings.py.
-- `IMPACT_API_ACCESS_TOKEN_` is configured correctly in `.env` file:
+  there should be set in _.env_ file.
+- `.env:IMPACT_API_ACCESS_TOKEN_` has a correct value:
   - make sure impact-api is running (`make dev` is successful)
   - generate an access token, as is described in the repo's quickstart.
   - set this token in _.env_ file.
