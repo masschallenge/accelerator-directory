@@ -15,7 +15,7 @@ _Copyright (c) 2017 MassChallenge, Inc._
 2. Start Docker.
 
 
-3. Install impact-api and spin up a dev server. 
+3. Install impact-api and get local server running on http://localhost:8000/ : 
 The accelerator-directory code is currently designed to 
 work with an instance of the MassChallenge's impact-api, and relevant 
 dependencies. Make sure to install it and run it by following the steps 
