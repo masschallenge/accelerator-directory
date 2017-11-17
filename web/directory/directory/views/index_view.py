@@ -18,14 +18,19 @@ class IndexView(TemplateView):
         name = self.request.GET.get("name")
         if not name:
             return {"results": []}
-        data = filter_organizations_by_name(name)
-        return {"results": data["results"], "current": name}
+        response = filter_organizations_by_name(name)
+        data = response.json()
+        if response.status_code < 400:
+            return {"results": data.get("results", []),
+                    "current": name}
+        return {"results": [],
+                "status_code": response.status_code,
+                "error_detail": data.get("detail")}
 
 
 def filter_organizations_by_name(name):
     url = _organization_list_url(name)
-    response = request(url, _headers())
-    return response.json()
+    return request(url, _headers())
 
 
 def request(url, headers):
@@ -41,8 +46,8 @@ def _organization_list_url(name):
 
 
 def _headers():
-    return {'content-type': "application/x-www-form-urlencoded",
-            'accept': "application/json; indent=4",
-            'authorization': ("Bearer {}".format(
+    return {"content-type": "application/x-www-form-urlencoded",
+            "accept": "application/json; indent=4",
+            "authorization": ("Bearer {}".format(
                 settings.IMPACT_API_ACCESS_TOKEN)),
-            'cache-control': "no-cache"}
+            "cache-control": "no-cache"}
