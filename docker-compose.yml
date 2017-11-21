@@ -52,6 +52,9 @@ services:
       - mysql
       - redis
     env_file: .dev.env
+    environment:
+      - IMPACT_API_URL=${IMPACT_API_URL}
+      - IMPACT_API_ACCESS_TOKEN=${IMPACT_API_ACCESS_TOKEN}
     user: root
   start_dependencies:
       image: "python:3.6"

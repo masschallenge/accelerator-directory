@@ -13,9 +13,30 @@
         crossorigin="anonymous">
 </head>
 <body>
-<h1>Hello, world!</h1>
+<h1>Search for an organization</h1>
+<form class="form-row">
+  <input class="form-group"
+         type="search"
+         value="{{ current }}"
+         id="search-field"/>
+</form>
+<button class="btn btn-primary"
+        id="search-btn">Search
+</button>
+<ul>
+  {% for org in results %}
+    <li><a target="_blank"
+           href="http://localhost:8181/organization/{{ org.id }}/">{{ org.name }},
+      {% if org.is_startup %}a disruptive startup{% else %}a resourceful
+        partner{% endif %}</a></li>
+  {% endfor %}
+</ul>
+{% if status_code %}
+  <div class="alert alert-danger" role="alert">
+    <strong>Error {{ status_code }}:</strong> {{ error_detail }}
+  </div>
+{% endif %}
 
-<!-- jQuery first, then Tether, then Bootstrap JS. -->
 <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
         integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
         crossorigin="anonymous"></script>
@@ -27,5 +48,13 @@
     src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
     integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
     crossorigin="anonymous"></script>
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("#search-btn").on("click", function (event) {
+      var url = "?name=" + $("#search-field").val();
+      window.location.assign(url);
+    });
+  });
+</script>
 </body>
 </html>

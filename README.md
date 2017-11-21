@@ -15,10 +15,10 @@ _Copyright (c) 2017 MassChallenge, Inc._
 2. Start Docker.
 
 
-3. Install impact-api and spin up a dev server. 
+3. Install impact-api and get local server running on http://localhost:8000/ : 
 The accelerator-directory code is currently designed to 
 work with an instance of the MassChallenge's impact-api, and relevant 
-depenedencies. Make sure to install it and run it by following the steps 
+dependencies. Make sure to install it and run it by following the steps 
 described [here](https://github.com/masschallenge/impact-api/blob/development/QUICK_START.md).
 
 4. Get the source code for accelerator-directory.  
@@ -42,15 +42,19 @@ cd accelerator-directory
 5. Configure the docker-compose with a .env file. Do this by copying 
 `.env.template` as `.env`, and set configurations for this project. 
 Ports set must not be already used on your localhost. The configuration is
-valid if running `docker-compose config` prints a valid docker-compose file.
+valid if running `docker-compose config -q` does not raise any errors.
 
 Also, make sure the following are configured manually:
-- redis port is configured correctly in the `DJANGO_HIREDIS_CACHE_LOCATION` 
-variable in _.dev.env_.
-- localhost port is configured correctly in the `proxy_pass` variable in 
-_web/nginx/nginx.conf_.
-- localhost port is configured correctly in _web/scripts/start-nodaemon.sh_.
-- localhost port is configured correctly in _supervisord.conf_.
+- `.env:IMPACT_API_URL` has a correct value:
+  - make sure impact-api is running (`make dev` is successful)
+  - run `docker ps`, find the image named impactapi_web, copy that container id
+  - run `docker inspect <container_id> | grep Gateway`. Use the IP that appears
+  there as the host in `.env:IMPACT_API_URL`.
+- `.env:IMPACT_API_ACCESS_TOKEN` has a correct value:
+  - make sure impact-api is running (`make dev` is successful)
+  - generate an access token, as is described in [impact-api repo's 
+  quickstart](https://github.com/masschallenge/impact-api/blob/development/QUICK_START.md#quickstart-for-impact-api).
+  - set this token in _.env_ file.
 
 
 6. Run tests.  From the accelerator-directory source directory run:
